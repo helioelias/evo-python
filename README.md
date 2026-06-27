@@ -9,8 +9,10 @@ O projeto consiste em um script em Python que realiza requisições HTTP para um
 ### Estrutura de Arquivos
 
 *   `instance.py`: Script principal que realiza a requisição POST para o endpoint `/instance/create` a fim de criar uma nova instância.
-*   `requirements.txt`: Dependências Python necessárias para a execução do script (biblioteca `requests` e suas subdependências).
-*   `.gitignore`: Configuração para evitar o envio de ambientes virtuais (`.venv`) ou arquivos temporários para o Git.
+*   `requirements.txt`: Dependências Python necessárias para a execução do script (incluindo `requests` e `python-dotenv`).
+*   `.env.example`: Modelo de configuração das variáveis de ambiente.
+*   `.env`: Arquivo local de configurações (este arquivo é ignorado pelo Git para segurança dos dados).
+*   `.gitignore`: Configuração para evitar o envio de ambientes virtuais (`.venv`) e segredos (`.env`) para o Git.
 
 ---
 
@@ -54,15 +56,21 @@ Com o ambiente virtual ativo, instale os pacotes necessários:
 pip install -r requirements.txt
 ```
 
-### 4. Configurar as Variáveis no Script
-Abra o arquivo `instance.py` e configure os seguintes parâmetros de acordo com a sua infraestrutura:
+### 4. Configurar as Variáveis de Ambiente
+Copie o arquivo de exemplo de variáveis de ambiente e configure seus valores:
 
-*   **URL da API (`url`)**: O endereço onde sua Evolution API está rodando (ex: `http://localhost:8080/instance/create`).
-*   **API Key (`apikey`)**: A chave de autenticação configurada na sua Evolution API (passada no cabeçalho `apikey`).
-*   **Payload da Instância**:
-    *   `instanceName`: Nome que deseja dar à nova instância (ex: `ebainstance`).
-    *   `qrcode`: Define se o QR Code deve ser retornado (`True` ou `False`).
-    *   `integration`: Tipo de integração (ex: `"WHATSAPP-BAILEYS"`).
+```bash
+cp .env.example .env
+```
+
+Abra o arquivo `.env` e ajuste as variáveis de acordo com o seu ambiente:
+
+*   `EVOLUTION_API_URL`: O endereço base onde a sua Evolution API está rodando (ex: `http://localhost:8080`).
+*   `EVOLUTION_API_KEY`: A chave de autenticação (API key) configurada na sua Evolution API.
+*   `EVOLUTION_INSTANCE_NAME`: O nome da instância do WhatsApp que você deseja criar (ex: `ebainstance`).
+*   `EVOLUTION_INSTANCE_QRCODE`: Define se o QR Code deve ser retornado (`true` ou `false`).
+*   `EVOLUTION_INSTANCE_MOBILE`: Configuração do tipo de dispositivo móvel (`true` ou `false`).
+*   `EVOLUTION_INSTANCE_INTEGRATION`: Tipo de integração de mensageria (ex: `WHATSAPP-BAILEYS`).
 
 ### 5. Executar o Script
 Rode o script para enviar a requisição de criação de instância:
